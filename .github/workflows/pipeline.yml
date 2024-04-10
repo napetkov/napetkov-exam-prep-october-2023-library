@@ -37,3 +37,29 @@ jobs:
         service_id: ${{ secrets.MY_RENDER_SERVICE_ID }}
         api_key: ${{ secrets.MY_RENDER_API_KEY }}
         wait_deploy: true    
+
+  run-ui-tests:
+    needs: depooy-production
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+    - name: Use Node 20.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.x
+        cache: 'npm'
+    - name: Install NPM Dependencies 
+      run: npm install
+    # - name: Install NPX Playwright browsers
+    #   run: npx playwright install
+    - name: Start Application
+      run: npm start &
+    - name: Run the UI tests
+      run: npm run test:ui
+    
+    
+    - name: Run Unit tests
+      run: npm run test:unit
+    
