@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test('Check add book page', async ({ page }) => {
-    await page.goto('http://localhost:8080/add-book');
+    await page.goto('https://napetkov-exam-prep-october-2023-library.onrender.com');
     const form = await page.$('form');
     expect(form).toBeTruthy();
   });
